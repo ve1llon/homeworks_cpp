@@ -4,39 +4,36 @@
 #include <string_view>
 #include <vector>
 
-std::vector<std::string> SplitString(const std::string& data) {
+std::vector<std::string> SplitString(std::string const& data) {
   std::vector<std::string> result;
-  std::string el = "";
-  int k = 0;
-  for (char const& letter : data) {
-    if (k == 0) {
-      if (letter == '(') {
-        k = 1;
-      } else if (letter != ' ' and letter != '\t') {
-        el.push_back(letter);
-      } else if (letter != ' ' or letter == '\t') {
-        if (!el.empty()) {
-          result.push_back(el);
-          el.clear();
+  std::string str_item = "";
+  bool IsBrackets = false;
+
+  for (char const& word : data) {
+    if (!IsBrackets) {
+      if (word == ' ' or word == '\t') {
+        if (!str_item.empty()) {
+          result.push_back(str_item);
+          str_item = "";
         }
-      };
-    };
-    if (k == 1) {
-      if (letter != ')') {
-        el.push_back(letter);
-      } else if (letter == ')') {
-        el.push_back(letter);
-        if (!el.empty()) {
-          result.push_back(el);
-          el.clear();
-        }
-        k = 0;
+      } else {
+        str_item.push_back(word);
+        if (word == '(') IsBrackets = true;
+      }
+    } else {
+      str_item.push_back(word);
+      if (word == ')') {
+        IsBrackets = false;
+        result.push_back(str_item);
+        str_item = "";
       };
     };
   };
-  if (!el.empty()) {
-    result.push_back(el);
-    el.clear();
+
+  if (!str_item.empty()) {
+    result.push_back(str_item);
+    str_item = "";
   }
-  return {result};
+
+  return result;
 };
