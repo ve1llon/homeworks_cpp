@@ -11,7 +11,7 @@ std::vector<std::string> SplitString(std::string const& data) {
 
   for (char const& word : data) {
     if (!IsBrackets) {
-      if (word == ' ' or word == '\t') {
+      if (word == ' ' || word == '\t') {
         if (!str_item.empty()) {
           result.push_back(str_item);
           str_item = "";
