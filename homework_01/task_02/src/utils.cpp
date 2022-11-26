@@ -5,18 +5,25 @@
 #include <string>
 
 int Calculate(const std::string& data) {
-  char a1 = data[0];
-  char sign = data[1];
-  char b1 = data[2];
+  std::string a1 = "";
+  std::string b1 = "";
+  char sign = ' ';
+  bool IsSign = false;
+  for (char const& i : data) {
+    if (!IsSign) {
+      if (i != '+' && i != '-' && i != '*') {
+        a1.push_back(i);
+      } else {
+        sign = i;
+        IsSign = true;
+      }
+    } else {
+      b1.push_back(i);
+    }
+  }
 
-  std::stringstream a_strm;
-  std::stringstream b_strm;
-
-  a_strm << a1;
-  b_strm << b1;
-
-  int a = std::stoi(a_strm.str());
-  int b = std::stoi(b_strm.str());
+  float a = std::stoi(a1);
+  float b = std::stoi(b1);
 
   if (sign == '+')
     return a + b;
