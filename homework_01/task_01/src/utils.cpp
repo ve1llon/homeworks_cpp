@@ -4,36 +4,46 @@
 #include <string_view>
 #include <vector>
 
-std::vector<std::string> SplitString(std::string const& data) {
+std::vector<std::string> SplitString(const std::string& data) {
   std::vector<std::string> result;
   std::string str_item = "";
-  bool IsBrackets = false;
+  bool brackets = false;
+  int extra_brackets = 0;
 
-  for (char const& word : data) {
-    if (!IsBrackets) {
+  for (const char& word : data) {
+    if (!brackets) {
       if (word == ' ' || word == '\t') {
         if (!str_item.empty()) {
           result.push_back(str_item);
-          str_item = "";
+          str_item.clear();
         }
-      } else {
+      } 
+      else {
         str_item.push_back(word);
-        if (word == '(') IsBrackets = true;
+        if (word == '(') brackets = true;
       }
-    } else {
+    } 
+    else {
       str_item.push_back(word);
+      if (word == '(') 
+        extra_brackets += 1;
       if (word == ')') {
-        IsBrackets = false;
-        result.push_back(str_item);
-        str_item = "";
+        if (extra_brackets != 0)
+          extra_brackets -= 1;
+        else { 
+          brackets = false;
+          result.push_back(str_item);
+          str_item.clear();
+        }
       };
     };
   };
 
   if (!str_item.empty()) {
     result.push_back(str_item);
-    str_item = "";
-  }
+    str_item.clear();
+  };
 
   return result;
+
 };

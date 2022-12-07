@@ -5,30 +5,35 @@
 #include <string>
 
 int Calculate(const std::string& data) {
-  std::string a1 = "";
-  std::string b1 = "";
+  std::string str1 = "";
+  std::string str2 = "";
   char sign = ' ';
   bool IsSign = false;
+
   for (char const& i : data) {
     if (!IsSign) {
-      if (i != '+' && i != '-' && i != '*') {
-        a1.push_back(i);
-      } else {
+      if (i != '+' && i != '-' && i != '*')
+        str1.push_back(i);
+      else {
         sign = i;
         IsSign = true;
       }
-    } else {
-      b1.push_back(i);
+    } 
+    else {
+      str2.push_back(i);
     }
   }
 
-  float a = std::stoi(a1);
-  float b = std::stoi(b1);
+  float float1 = std::stoi(str1);
+  float float2 = std::stoi(str2);
 
-  if (sign == '+')
-    return a + b;
-  else if (sign == '-')
-    return a - b;
-  else if (sign == '*')
-    return a * b;
-}
+  switch (sign) {
+    case '+':
+      return float1 + float2;
+    case '-':
+      return float1 - float2;
+    case '*':
+      return float1 * float2;
+  };
+
+};
