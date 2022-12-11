@@ -10,24 +10,24 @@ std::vector<std::string> SplitString(const std::string& data) {
   bool brackets = false;
   int extra_brackets = 0;
 
-  for (const char& word : data) {
+  for (const char& c : data) {
     if (!brackets) {
-      if (word == ' ' || word == '\t') {
+      if (c == ' ' || c == '\t') {
         if (!str_item.empty()) {
           result.push_back(str_item);
           str_item.clear();
         }
       } 
       else {
-        str_item.push_back(word);
-        if (word == '(') brackets = true;
+        str_item.push_back(c);
+        if (c == '(') brackets = true;
       }
     } 
     else {
-      str_item.push_back(word);
-      if (word == '(') 
+      str_item.push_back(c);
+      if (c == '(') 
         extra_brackets += 1;
-      if (word == ')') {
+      if (c == ')') {
         if (extra_brackets != 0)
           extra_brackets -= 1;
         else { 
@@ -35,15 +35,15 @@ std::vector<std::string> SplitString(const std::string& data) {
           result.push_back(str_item);
           str_item.clear();
         }
-      };
-    };
-  };
+      }
+    }
+  }
 
   if (!str_item.empty()) {
     result.push_back(str_item);
     str_item.clear();
-  };
+  }
 
   return result;
 
-};
+}

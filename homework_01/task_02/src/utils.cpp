@@ -8,15 +8,15 @@ int Calculate(const std::string& data) {
   std::string str1 = "";
   std::string str2 = "";
   char sign = ' ';
-  bool IsSign = false;
+  bool is_sign = false;
 
   for (char const& i : data) {
-    if (!IsSign) {
+    if (!is_sign) {
       if (i != '+' && i != '-' && i != '*')
         str1.push_back(i);
       else {
         sign = i;
-        IsSign = true;
+        is_sign = true;
       }
     } 
     else {
@@ -34,6 +34,6 @@ int Calculate(const std::string& data) {
       return float1 - float2;
     case '*':
       return float1 * float2;
-  };
+  }
 
-};
+}
